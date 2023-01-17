@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body{
+        background-color: rgb(19,25,39);
+        font-family: calibri;
+    }
+    h1{
+        text-align:center;
+        color: rgb(213, 207, 207);
+    }
+    form{
+        width:25%;
+        margin:auto;
+        padding:35px;
+        display:flex;
+        flex-direction: column;
+        box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    }
+    form>input{
+        margin:15px;
+        border:none;
+        outline: none;
+        height:25px;
+        border-radius: 5px;
+        background-color:rgb(6, 38, 112);
+        color:white;
+    }
+    form>a{
+        margin-left:15px;
+        color: white;
+    }
+</style>
+<body>
+    <h1>SignUp</h1>
+    <form action="">
+        <input type="text" placeholder="Name" id="name">
+        <input type="email" placeholder="Email-ID" id="email">
+        <input type="password" placeholder="Enter New Password" id="pass">
+        <input type="password" placeholder="Re-Enter New Password" id="repass">
+        <a href="./Login.html">already have account? Login</a>
+        <input type="submit" value="SignUp">
+    </form>
+    
+</body>
+</html>
+<script>
+    let arr=JSON.parse(localStorage.getItem("signUp"))||[];
+
+    let form=document.querySelector("form");
+    form.addEventListener("submit",getData);
+    
+
+    function constr(name,email,password){
+        this.name=name;
+        this.email=email;
+        this.password=password;
+    }
+
+    function getData(event){
+    event.preventDefault();
+   
+    let name=form.name.value;
+    let email=form.email.value;
+    let password=form.pass.value;
+    let repassword=form.repass.value;
+
+    if(name=="" || email=="" || password=="" || repassword==""){
+        alert("Please fill all the details");
+    }
+    else if(password!=repassword){
+        alert("Password did not match");
+    }
+    else{
+        let obj=new constr(name,email,password);
+        console.log(obj);
+        arr.push(obj);
+        localStorage.setItem("signUp",JSON.stringify(arr));
+        form.name.value="";
+        form.email.value="";
+        form.pass.value="";
+        form.repass.value="";
+        window.open("./Login.html");
+    
+    }
+}
+</script>
